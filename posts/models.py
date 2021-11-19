@@ -74,7 +74,7 @@ class Post(models.Model):
 
     def thumb_image(self):
         from django.utils.html import mark_safe
-        return mark_safe('<img src=%s width="150" height="150" style="object-fit:cover;" />' % (self.preview_image.url))
+        return mark_safe('<a link=%s><img src=%s width="150" height="150" style="object-fit:cover;" /></>' % (self.preview_image.url, self.preview_image.url))
     thumb_image.short_description = 'Превью изображение'
 
     def get_absolute_url(self):

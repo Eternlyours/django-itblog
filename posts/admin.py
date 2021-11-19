@@ -6,7 +6,7 @@ from posts.models import Post, Rubric
 class PostAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('is_active', 'slug', ('created_at', 'updated_at', ), ('rubric', 'author',), ('thumb_image', 'preview_image'), ),
+            'fields': ('is_active', 'slug', ('created_at', 'updated_at', ), ('rubric', 'author',), ('preview_image', 'thumb_image'), ),
         }),
         ('Теги', {
             'classes': ('collapse', ),
@@ -27,6 +27,8 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'tags', 'rubric', )
     date_hierarchy = 'created_at'
     search_fields = ('title', 'body', 'tags__word', 'rubric__name', )
+    save_on_top = True
+    list_select_related = True
 
     class Media:
         css = {
