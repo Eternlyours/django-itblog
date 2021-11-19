@@ -27,11 +27,10 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'tags', 'rubric', )
     date_hierarchy = 'created_at'
     search_fields = ('title', 'body', 'tags__word', 'rubric__name', )
-    # change_list_template = 'admin/posts/change_list.html'
 
     class Media:
         css = {
-             'all': ('admin/css/style.css',)
+             'all': ('admin/css/table.css',)
         }
 
 
