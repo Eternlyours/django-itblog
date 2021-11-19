@@ -1,0 +1,7 @@
+#result_list th, td{
+    vertical-align: inherit!important;
+}
+
+#result_list {
+    background-color: black!important;
+}

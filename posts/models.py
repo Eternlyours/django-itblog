@@ -4,10 +4,10 @@ from authors.models import Author
 from ckeditor.fields import RichTextField
 from django.db import models
 from django.template.defaultfilters import slugify
-from unidecode import unidecode
+from django.urls import reverse
 from django.utils import timezone
-
 from tags.models import Tag
+from unidecode import unidecode
 
 
 class Rubric(models.Model):
@@ -54,7 +54,8 @@ class Post(models.Model):
         verbose_name='Превью изображение', upload_to='uploads/posts/preview/%y/%m/%d/')
     rubric = models.ForeignKey(Rubric, on_delete=models.SET_NULL,
                                null=True, related_name='posts', verbose_name='Рубрика')
-    tags = models.ManyToManyField(Tag, related_name='posts', verbose_name='Теги', )
+    tags = models.ManyToManyField(
+        Tag, related_name='posts', verbose_name='Теги', )
 
     class Meta:
         verbose_name = 'Публикация'
@@ -75,3 +76,6 @@ class Post(models.Model):
         from django.utils.html import mark_safe
         return mark_safe('<img src=%s width="150" height="150" style="object-fit:cover;" />' % (self.preview_image.url))
     thumb_image.short_description = 'Превью изображение'
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'slug': self.slug})
