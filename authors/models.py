@@ -10,3 +10,6 @@ class Author(models.Model):
     class Meta:
         verbose_name = 'Автор'
         verbose_name_plural = 'Авторы'
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}' 

@@ -7,6 +7,8 @@ from django.template.defaultfilters import slugify
 from unidecode import unidecode
 from django.utils import timezone
 
+from tags.models import Tag
+
 
 class Rubric(models.Model):
     slug = models.SlugField(max_length=255, verbose_name='Семантический URL')
@@ -52,6 +54,7 @@ class Post(models.Model):
         verbose_name='Превью изображение', upload_to='uploads/posts/preview/%y/%m/%d/')
     rubric = models.ForeignKey(Rubric, on_delete=models.SET_NULL,
                                null=True, related_name='posts', verbose_name='Рубрика')
+    tags = models.ManyToManyField(Tag, related_name='posts', verbose_name='Теги', )
 
     class Meta:
         verbose_name = 'Публикация'

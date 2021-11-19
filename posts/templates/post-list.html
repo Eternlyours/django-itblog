@@ -7,8 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <img src="{{ post.preview_image.url }}" alt="{{ post.title }}">
-    <h1>{{ post.title }}</h1>
-    {{ post.body|safe }}
+    {% for post in posts %}
+        <img src="{{ post.preview_image.url }}">
+        {{ post.title }}
+    {% endfor %}
 </body>
 </html>
