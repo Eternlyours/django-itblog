@@ -74,8 +74,21 @@ class Post(models.Model):
 
     def thumb_image(self):
         from django.utils.html import mark_safe
-        return mark_safe('<a link=%s><img src=%s width="150" height="150" style="object-fit:cover;" /></>' % (self.preview_image.url, self.preview_image.url))
-    thumb_image.short_description = 'Превью изображение'
+        return mark_safe('<img src=%s width="150" height="150" style="object-fit:cover;" />' % (self.preview_image.url))
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'slug': self.slug})
+
+    def get_next_post(self):
+        post = Post.objects.filter(
+            is_active=True, created_at__gt=self.created_at).order_by('created_at').values('slug', 'title', 'preview_image').first()
+        if post is None:
+            post = Post.objects.order_by('created_at').values('slug', 'title', 'preview_image').first()
+        return post
+
+    def get_prev_post(self):
+        post = Post.objects.filter(
+            is_active=True, created_at__lt=self.created_at).order_by('created_at').values('slug', 'title', 'preview_image').first()
+        if post is None:
+            post = Post.objects.order_by('-created_at').values('slug', 'title', 'preview_image').first()
+        return post

@@ -1,12 +1,19 @@
 from django.contrib import admin
+from django.contrib.admin.decorators import display
+from posts.forms import PostAdminModelForm
 
 from posts.models import Post, Rubric
 
 
 class PostAdmin(admin.ModelAdmin):
+    # form = PostAdminModelForm
     fieldsets = (
         (None, {
-            'fields': ('is_active', 'slug', ('created_at', 'updated_at', ), ('rubric', 'author',), ('preview_image', 'thumb_image'), ),
+            'fields': ('is_active', 'slug', ('created_at', 'updated_at', ), ('rubric', 'author',), ),
+        }),
+        ('Изображение', {
+            'classes': ('collapse', ),
+            'fields': (('preview_image', 'thumb_image', ), )
         }),
         ('Теги', {
             'classes': ('collapse', ),
@@ -24,7 +31,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'rubric', 'thumb_image', 'is_active', )
     list_display_links = ('title', )
     list_editable = ('is_active', )
-    list_filter = ('is_active', 'tags', 'rubric', )
+    list_filter = ('is_active', 'tags__word', 'rubric__name', )
     date_hierarchy = 'created_at'
     search_fields = ('title', 'body', 'tags__word', 'rubric__name', )
     save_on_top = True
@@ -34,6 +41,10 @@ class PostAdmin(admin.ModelAdmin):
         css = {
              'all': ('admin/css/table.css',)
         }
+
+    @admin.display(description='Миниатюра')
+    def thumb_image(self, obj):
+        return obj.thumb_image()
 
 
 class RubricAdmin(admin.ModelAdmin):

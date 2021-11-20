@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="{% url 'post-detail' post.get_prev_post.slug %}"><</a>
+    <a href="{% url 'post-detail' post.get_next_post.slug %}">></a>
+    <br>
     <img src="{{ post.preview_image.url }}" alt="{{ post.title }}">
     <h1>{{ post.title }}</h1>
     {{ post.body|safe }}
