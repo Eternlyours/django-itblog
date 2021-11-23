@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'posts',
     'authors',
     'tags',
+    'readers',
+    'subscriptions',
     'ckeditor',
 ]
 

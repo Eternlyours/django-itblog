@@ -8,8 +8,13 @@
 </head>
 <body>
     {% for post in posts %}
-        <img src="{{ post.preview_image.url }}">
-        {{ post.title }}
+        <p>
+            <img src="{{ post.preview_image.url }}" width="200" height="140" style="object-fit: cover;">
+            <br>
+            {{ post.title }}
+            <br>
+            <a href="{{ post.get_absolute_url }}">читать...</a>
+        </p>
     {% endfor %}
 </body>
 </html>

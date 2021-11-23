@@ -31,7 +31,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'rubric', 'thumb_image', 'is_active', )
     list_display_links = ('title', )
     list_editable = ('is_active', )
-    list_filter = ('is_active', 'tags__word', 'rubric__name', )
+    list_filter = ('is_active', 'tags', 'rubric', )
     date_hierarchy = 'created_at'
     search_fields = ('title', 'body', 'tags__word', 'rubric__name', )
     save_on_top = True
