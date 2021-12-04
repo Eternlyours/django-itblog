@@ -6,6 +6,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
+from posts.manager import PostManager
 from tags.models import Tag
 from unidecode import unidecode
 
@@ -56,6 +57,8 @@ class Post(models.Model):
                                null=True, related_name='posts', verbose_name='Рубрика')
     tags = models.ManyToManyField(
         Tag, related_name='posts', verbose_name='Теги', )
+
+    objects = PostManager()
 
     class Meta:
         verbose_name = 'Публикация'
